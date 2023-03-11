@@ -9,12 +9,11 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class AdminUser {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String employeeId;
     @OneToOne(fetch=FetchType.EAGER, cascade=CascadeType.ALL)
-    private User user;
+    private UserDetails userDetails;
 
 }

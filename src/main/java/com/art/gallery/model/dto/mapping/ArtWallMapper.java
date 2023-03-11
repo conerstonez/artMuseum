@@ -1,23 +1,19 @@
 package com.art.gallery.model.dto.mapping;
 
-import com.art.gallery.model.data.*;
-import com.art.gallery.model.dto.request.*;
-import com.art.gallery.model.dto.response.ArtistResponseDto;
+import com.art.gallery.model.data.Artist;
+import com.art.gallery.model.dto.request.ArtistRequestDto;
 
 public class ArtWallMapper {
 
+    public static Artist mapArtist(ArtistRequestDto artistRequestDto) {
+        Artist artist = new Artist();
+        artist.setUsername(artistRequestDto.getUsername());
+        artist.getUserDetails().setName(artistRequestDto.getFirstName() + " " + artistRequestDto.getLastName());
+        artist.getUserDetails().setEmail(artistRequestDto.getEmail());
+        artist.getUserDetails().setPassword(artistRequestDto.getPassword());
+        artist.setGender(artistRequestDto.getGender());
+        artist.setDateOfBirth(artistRequestDto.getDateOfBirth());
 
-    public static ArtistResponseDto mapArtist(Artist artist) {
-        ArtistResponseDto artistResponseDto = new ArtistResponseDto();
-        artistResponseDto.setId(artist.getId());
-        artistResponseDto.setFirstName(artist.getFirstName());
-        artistResponseDto.setLastName(artist.getLastName());
-        artistResponseDto.setEmail(artist.getEmail());
-        artistResponseDto.setGender(artist.getGender());
-        artistResponseDto.setDateOfBirth(artist.getDateOfBirth());
-        artistResponseDto.setWebpageUrl(artist.getWebpageUrl());
-        artistResponseDto.setSocialMediaUrl(artist.getSocialMediaUrl());
-
-        return artistResponseDto;
+        return artist;
     }
 }

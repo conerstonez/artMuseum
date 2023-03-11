@@ -14,12 +14,8 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class ArtGallery extends User{
-
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Post> posts;
-
-    @Override
+public class ArtGallery {
+    @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "artGallery_generation"
@@ -30,7 +26,9 @@ public class ArtGallery extends User{
             allocationSize = 100,
             initialValue = 10101
     )
-    public void setId(Long id) {
-        super.setId(id);
-    }
+    private Long artGalleryId;
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Post> posts;
+    @OneToOne
+    private UserDetails userDetails;
 }

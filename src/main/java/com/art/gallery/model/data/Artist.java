@@ -14,15 +14,9 @@ import java.util.List;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class Artist extends User {
-    private Gender gender;
-    private LocalDate dateOfBirth;
-    private String webpageUrl;
-    private String socialMediaUrl;
-    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
-    private List<Post> posts;
+public class Artist {
 
-    @Override
+    @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
             generator = "artist_generation"
@@ -33,7 +27,14 @@ public class Artist extends User {
             allocationSize = 1,
             initialValue = 101
     )
-    public void setId(Long id) {
-        super.setId(id);
-    }
+    private Long artistId;
+    private String username;
+    private Gender gender;
+    private LocalDate dateOfBirth;
+    private String webpageUrl;
+    private String socialMediaUrl;
+    @OneToOne
+    private UserDetails userDetails;
+    @OneToMany(mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Post> posts;
 }

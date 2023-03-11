@@ -32,7 +32,7 @@ public class Post {
     @ManyToOne
     @Cascade(CascadeType.SAVE_UPDATE)
     @JoinColumn(name = "user_id")
-    private User user;
+    private UserDetails userDetails;
     @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = jakarta.persistence.CascadeType.ALL)
     private List<Comment> comments;
     @OneToOne(cascade = jakarta.persistence.CascadeType.ALL)

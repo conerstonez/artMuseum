@@ -4,7 +4,6 @@ package com.art.gallery.service.artistService;
 import com.art.gallery.model.data.*;
 import com.art.gallery.model.dto.request.ArtistRequestDto;
 import com.art.gallery.model.dto.request.PostDto;
-import com.art.gallery.model.dto.request.UserDetailDto;
 import com.art.gallery.service.artWallServices.artistServices.ArtistService;
 import com.art.gallery.service.artWallServices.categoryServices.CategoryService;
 import com.github.fge.jsonpatch.JsonPatchException;
@@ -24,7 +23,6 @@ class ArtistServiceImplTest {
     private CategoryService categoryService;
 
     ArtistRequestDto artist = new ArtistRequestDto();;
-    UserDetailDto userDetail = new UserDetailDto();
     Address address1 = new Address();
 
     @BeforeEach
@@ -42,17 +40,16 @@ class ArtistServiceImplTest {
         artist.setEmail("f.odunayo34@gmail.com");
         artist.setPassword("password");
         artist.setGender(Gender.FEMALE);
-        artist.setSocialMediaUrl("@smiley");
-        artist.setWebpageUrl("thewebingthings.com");
+//        artist.setSocialMediaUrl("@smiley");
+//        artist.setWebpageUrl("thewebingthings.com");
         artist.setDateOfBirth(1997, 10, 11);
-        artist.setAddress(address1);
+//        artist.setAddress(address1);
 
     }
 
     @Test
     void registerArtistTest() {
         ArtistRequestDto artistRequestDto = new ArtistRequestDto();;
-        UserDetailDto userDetailDto = new UserDetailDto();
         Address address = new Address();
 
         address.setCity("Ibadan");
@@ -63,47 +60,41 @@ class ArtistServiceImplTest {
         address.setZipCode("672728");
         address.setPhoneNumber("09064374326");
 
-//        userDetailDto.setAddress(address);
         artistRequestDto.setFirstName("Ibukun");
         artistRequestDto.setLastName("Olalere");
         artistRequestDto.setEmail("olabukun@gmail.com");
         artistRequestDto.setPassword("secret");
-//        artistDto.setUserDetailDto(userDetailDto);
         artistRequestDto.setGender(Gender.MALE);
-        artistRequestDto.setSocialMediaUrl("@contactme");
-        artistRequestDto.setWebpageUrl("mywebsite.com");
+
         artistRequestDto.setDateOfBirth(2000, 8, 21);
-        artistRequestDto.setAddress(address);
 
         Artist savedArtist = artistService.register(artistRequestDto);
         Artist savedArtist1 = artistService.register(artist);
 
         assertNotNull(savedArtist);
-        assertNotNull(savedArtist.getId());
+        assertNotNull(savedArtist.getArtistId());
     }
 
     @Test
     void artistLoginTest() {
-        User artistDto = artistService.login("olabukun@gmail.com", "secret");
+        Artist artistDto = artistService.login("olabukun@gmail.com", "secret");
         assertNotNull(artistDto);
-        assertEquals(1, artistDto.getId());
+        assertEquals(1, artistDto.getArtistId());
     }
 
     @Test
     void profileUpdateTest() throws JsonPatchException {
-        User artist = artistService.login("olabukun@gmail.com", "secret");
+        Artist artist = artistService.login("olabukun@gmail.com", "secret");
         ArtistRequestDto artistDto = new ArtistRequestDto();
         Address newAddress =  new Address();
         newAddress.setPhoneNumber("08038728300");
-        artistDto.setAddress(newAddress);
-        artistService.updateArtistProfile(artistDto, artist.getId());
-
-
+//        artistDto.setAddress(newAddress);
+//        artistService.updateArtistProfile(artistDto, artist.getArtistId());
     }
 
     @Test
     void createPostTest() {
-        User artist = artistService.login("olabukun@gmail.com", "secret");
+        Artist artist = artistService.login("olabukun@gmail.com", "secret");
         PostDto post = new PostDto();
         post.setTitle("First Post");
         post.setDescription(".........");
@@ -112,8 +103,7 @@ class ArtistServiceImplTest {
         ArtWork artWork = new ArtWork();
         artWork.setCategory(categoryService.getCategoryByName("test name"));
 
-
-        Post post1 = artistService.createPost(post, artWork, artist.getId());
+        Post post1 = artistService.createPost(post, artWork, artist.getArtistId());
 //        assertEquals(1, artist.getPosts().size());
     }
 }

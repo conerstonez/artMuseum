@@ -3,7 +3,6 @@ package com.art.gallery.service.artWallServices.artistServices;
 import com.art.gallery.model.data.ArtWork;
 import com.art.gallery.model.data.Artist;
 import com.art.gallery.model.data.Post;
-import com.art.gallery.model.data.User;
 import com.art.gallery.model.dto.request.ArtistRequestDto;
 import com.art.gallery.model.dto.request.PostDto;
 import com.art.gallery.model.repository.ArtistRepository;
@@ -31,11 +30,19 @@ public class ArtistServiceImpl implements ArtistService {
         this.modelMapper = new ModelMapper();
     }
 
-
     @Override
     public Artist register(ArtistRequestDto artistRequestDto) {
-        Artist newArtist = modelMapper.map(artistRequestDto, Artist.class);
-        return artistRepository.save(newArtist);
+        return null;
+    }
+
+    @Override
+    public Artist login(String email, String password) {
+        return null;
+    }
+
+    @Override
+    public Post createPost(PostDto post, ArtWork artWork, Long id) {
+        return null;
     }
 
     @Override
@@ -49,31 +56,5 @@ public class ArtistServiceImpl implements ArtistService {
         JsonNode updatedNode = updatePayload.apply(foundNode);
 
         return mapper.convertValue(updatedNode, Artist.class);
-    }
-
-//    @Override
-//    public List<ArtistDto> getAllArtists() {
-//        List<Artist> artists = new ArrayList<>(artistRepository.findAll());
-//
-//        List<ArtistDto> artistDtos = artists.stream().map(MapToDto::mapArtistToDto)
-//                                    .collect(Collectors.toList());
-//        artistDtos.forEach(artistDto -> artistDto.setCode(HttpStatus.OK));
-//
-//        return artistDtos;
-//    }
-
-    @Override
-    public Artist login(String email, String password) {
-        Artist foundArtist = artistRepository.findArtistByEmail(email);
-        if (foundArtist.getPassword().equals(password)) return foundArtist;
-
-        return null;
-    }
-
-    @Override
-    public Post createPost(PostDto post, ArtWork artWork, Long id) {
-        User artist = artistRepository.getReferenceById(id);
-
-        return postService.createPost(post, artWork);
     }
 }

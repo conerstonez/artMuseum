@@ -33,7 +33,7 @@ public class ArtWork {
     @JoinColumn(name = "category_id")
     private Category category;
     @ManyToOne
-    private User user;
+    private UserDetails userDetails;
     @OneToOne(mappedBy = "artWork")
     private Post post;
     private Rating rating;

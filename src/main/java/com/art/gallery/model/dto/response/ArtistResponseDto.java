@@ -10,8 +10,8 @@ import java.time.LocalDate;
 public class ArtistResponseDto {
     public HttpStatus code;
     private Long id;
-    private String FirstName;
-    private  String lastName;
+    private String name;
+    private String username;
     private String email;
     private Gender gender;
     private LocalDate dateOfBirth;
